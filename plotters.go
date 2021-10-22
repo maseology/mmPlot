@@ -1,4 +1,4 @@
-package mmio
+package mmplt
 
 import (
 	"fmt"
@@ -274,6 +274,9 @@ func Scatter11(fp string, x, y []float64) {
 
 	xn, yn := []float64{}, []float64{}
 	for i := range x {
+		if math.IsNaN(x[i]) || math.IsNaN(y[i]) {
+			continue
+		}
 		if x[i] == 0. && y[i] == 0. {
 			continue
 		}
@@ -281,7 +284,7 @@ func Scatter11(fp string, x, y []float64) {
 		yn = append(yn, y[i])
 	}
 	if err := plotutil.AddScatters(p, points(xn, yn)); err != nil {
-		log.Fatalf(" plotters.Scatter1 error: %v", err)
+		log.Fatalf(" plotters.Scatter11 error: %v", err)
 	}
 	max, min := math.Max(p.X.Max, p.Y.Max), math.Min(p.X.Min, p.Y.Min)
 	p.X.Max = max
@@ -429,8 +432,13 @@ func points(x, y []float64) plotter.XYs {
 	}
 	pts := make(plotter.XYs, len(x))
 	for i := range pts {
-		pts[i].X = x[i]
-		pts[i].Y = y[i]
+		if !math.IsNaN(y[i]) {
+			pts[i].X = x[i]
+			pts[i].Y = y[i]
+		} else {
+			pts[i].X = x[i]
+			pts[i].Y = 0.
+		}
 	}
 	return pts
 }
