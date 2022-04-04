@@ -1,3 +1,3 @@
 # mmPlot
 
-a quick access to gonum.org/v1/plot tools
+a quick access to "canned" gonum.org/v1/plot plots
