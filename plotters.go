@@ -306,7 +306,7 @@ func Scatter11(fp string, x, y []float64) {
 }
 
 // Line creates a generic line plot
-func Line(fp string, x []float64, ys map[string][]float64, width float64) {
+func Line(fp string, x []float64, ys map[string][]float64, width, height float64) {
 	p := plot.New()
 
 	lines := make([]interface{}, 0)
@@ -321,7 +321,7 @@ func Line(fp string, x []float64, ys map[string][]float64, width float64) {
 	p.Legend.Top = true
 
 	// Save the plot to a PNG file.
-	if err := p.Save(vg.Length(width)*vg.Inch, 8*vg.Inch, fp); err != nil {
+	if err := p.Save(vg.Length(width)*vg.Inch, vg.Length(height)*vg.Inch, fp); err != nil {
 		log.Fatalf(" plotters.Line error: %v", err)
 	}
 }
