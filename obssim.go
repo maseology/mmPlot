@@ -11,11 +11,21 @@ import (
 
 // ObsSim is used to create simple observed vs. simulated hydrographs
 func ObsSim(fp string, o, s []float64) {
+	obsSim(fp, o, s, "", "", "discharge")
+}
+
+func ObsSimLabs(fp string, o, s []float64, title, xlab, ylab string) {
+	obsSim(fp, o, s, title, xlab, ylab)
+}
+
+func obsSim(fp string, o, s []float64, title, xlab, ylab string) {
 	p := plot.New()
 
-	// p.Title.Text = fp
-	p.X.Label.Text = ""
-	p.Y.Label.Text = "discharge"
+	if len(title) > 0 {
+		p.Title.Text = title
+	}
+	p.X.Label.Text = xlab
+	p.Y.Label.Text = ylab
 
 	ps, err := plotter.NewLine(sequentialLine(s))
 	if err != nil {
