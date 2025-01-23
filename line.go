@@ -15,6 +15,21 @@ import (
 )
 
 // Line creates a generic line plot
+func LineSimple(fp string, y []float64, width, height float64) {
+	p := plot.New()
+	err := plotutil.AddLines(p, arrayPoints(y))
+	if err != nil {
+		log.Fatalf(" plotters.LineSimple error: %v", err)
+	}
+	p.Legend.Top = true
+
+	// Save the plot to a PNG file.
+	if err := p.Save(vg.Length(width)*vg.Inch, vg.Length(height)*vg.Inch, fp); err != nil {
+		log.Fatalf(" plotters.LineSimple error: %v", err)
+	}
+}
+
+// Line creates a generic line plot
 func Line(fp string, x []float64, ys map[string][]float64, width, height float64) {
 	p := plot.New()
 

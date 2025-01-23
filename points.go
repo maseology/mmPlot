@@ -35,3 +35,12 @@ func datePoints(d []time.Time, y []float64) plotter.XYs {
 	}
 	return pts
 }
+
+func arrayPoints(y []float64) plotter.XYs {
+	pts := make(plotter.XYs, len(y))
+	for i := range pts {
+		pts[i].X = float64(i)
+		pts[i].Y = y[i]
+	}
+	return pts
+}
